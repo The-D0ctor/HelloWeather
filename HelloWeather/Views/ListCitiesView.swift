@@ -13,11 +13,7 @@ struct ListCitiesView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Météo")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+            VStack {
                 if (cities.isEmpty) {
                     Text("Aucun resultat")
                         .font(.title3)
@@ -36,6 +32,7 @@ struct ListCitiesView: View {
                     .scrollIndicators(.hidden)
                 }
             }
+            .navigationTitle("Météo")
             .padding()
             .searchable(text: $searchText, prompt: "Ville ou aéroport")
             .onChange(of: searchText) { oldValue, newValue in
@@ -43,9 +40,9 @@ struct ListCitiesView: View {
                     cities = City.cities
                 }
                 else {
-                    cities = City.cities.filter({ city in
+                    cities = City.cities.filter { city in
                         city.name.lowercased() .hasPrefix(newValue.lowercased())
-                    })
+                    }
                 }
             }
         }
